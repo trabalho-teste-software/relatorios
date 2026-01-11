@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Teste de Software - Histórico de Relatórios</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1, h2 {
+      color: #2186d4;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    h2 {
+      font-size: 1.2em;
+      color: #333;
+      margin-top: 0;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+    }
+    .relatorios {
+      margin-top: 24px;
+      background: white;
+      box-shadow: 0 2px 8px #0002;
+      padding: 24px 36px 24px 36px;
+      border-radius: 10px;
+      max-width: 440px;
+      width: 100%;
+      min-width: 300px;
+    }
+    .relatorio {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .relatorio:last-child { border-bottom: none; }
+    .links a {
+      margin-right: 12px;
+      color: #2186d4;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    .links a:last-child { margin-right: 0; }
+    .links a:hover {
+      text-decoration: underline;
+      color: #145288;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Teste de Software</h1>
+    <h2>Histórico de Relatórios</h2>
+    <div class="relatorios">
+      <div class="relatorio">
+        <span>Relatório 1</span>
+        <span class="links">
+          <a href="1/index.html" target="_blank">Abrir relatório</a>
+        </span>
+      </div>
+      <div class="relatorio">
+        <span>Relatório 2</span>
+        <span class="links">
+          <a href="2/index.html" target="_blank">Abrir relatório</a>
+          <a href="2/relatorio.csv" download>Baixar CSV</a>
+        </span>
+      </div>
+      <div class="relatorio">
+        <span>Relatório 3</span>
+        <span class="links">
+          <a href="3/index.html" target="_blank">Abrir relatório</a>
+          <a href="3/relatorio.csv" download>Baixar CSV</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
