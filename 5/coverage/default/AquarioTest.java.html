@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AquarioTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">AquarioTest.java</span></div><h1>AquarioTest.java</h1><pre class="source lang-java linenums">import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+<span class="fc" id="L5">public class AquarioTest {</span>
+
+	@Test
+	public void testCT01_InicializacaoValida() {  
+<span class="fc" id="L9">	    Aquario jogo = new Aquario(1, 1, 1, 1, 1, 1, 1, 2);</span>
+<span class="fc" id="L10">	    assertNotNull(jogo); </span>
+<span class="fc" id="L11">	}</span>
+	
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCT02_MA_Invalido() {
+<span class="nc" id="L16">        new Aquario(0, 1, 1, 1, 1, 1, 1, 1);</span>
+<span class="nc" id="L17">    }</span>
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCT03_RA_Invalido() {
+<span class="nc" id="L21">        new Aquario(1, 0, 1, 1, 1, 1, 1, 1);</span>
+<span class="nc" id="L22">    }</span>
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCT04_MB_Invalido() {
+<span class="nc" id="L26">        new Aquario(1, 1, 0, 1, 1, 1, 1, 1);</span>
+<span class="nc" id="L27">    }</span>
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCT05_RB_Invalido() {
+<span class="nc" id="L31">        new Aquario(1, 1, 1, 0, 1, 1, 1, 1);</span>
+<span class="nc" id="L32">    }</span>
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCT06_X_Invalido() {
+<span class="nc" id="L36">        new Aquario(1, 1, 1, 1, 0, 1, 1, 1);</span>
+<span class="nc" id="L37">    }</span>
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCT07_Y_Invalido() {
+<span class="nc" id="L41">        new Aquario(1, 1, 1, 1, 1, 0, 1, 1);</span>
+<span class="nc" id="L42">    }</span>
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCT08_M_Invalido() {
+<span class="nc" id="L46">        new Aquario(1, 1, 1, 1, 1, 1, 0, 1);</span>
+<span class="nc" id="L47">    }</span>
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCT09_N_Invalido() {
+<span class="nc" id="L51">        new Aquario(1, 1, 1, 1, 1, 1, 1, 0);</span>
+<span class="nc" id="L52">    }</span>
+    
+    @Test
+    public void testCT18_Numero_Peixes_Maior_Que_Aquario() {
+<span class="fc" id="L56">    	Exception ex = assertThrows(IllegalArgumentException.class, () -&gt; {</span>
+<span class="nc" id="L57">    		new Aquario(1, 1, 1, 1, 1, 1, 1, 1);</span>
+<span class="nc" id="L58">    	});</span>
+<span class="fc" id="L59">    	String expectedMessage = &quot;Erro: O número de peixes deve ser menor ou igual ao número de casas do aquário.&quot;;</span>
+<span class="fc" id="L60">    	assertEquals(expectedMessage, ex.getMessage());</span>
+<span class="fc" id="L61">    }</span>
+
+    @Test
+    public void testCT19_MovimentoPeixeA() {
+        // CT19: Peixe A deve mudar de posição (simples movimentação)
+        // Cenário: MA grande (não morre), X=1, M=3, N=3 (espaço para andar)
+<span class="fc" id="L67">        Aquario jogo = new Aquario(10, 10, 10, 10, 1, 1, 20, 20);</span>
+        
+<span class="fc" id="L69">        jogo.executarIteracao();        </span>
+<span class="fc" id="L70">        assertEquals(1, jogo.getQuantidadePeixesA());</span>
+<span class="fc" id="L71">    }</span>
+
+    @Test
+    public void testCT20_ReproducaoPeixeA() {
+        // CT20: Peixe A reproduz.
+        // Cenário: RA=1 (reproduz logo), MA=10 (não morre)
+<span class="fc" id="L77">    	Aquario jogo = new Aquario(10, 1, 10, 10, 20, 1, 20, 20);</span>
+        
+        
+        
+        // Executa o turno. O peixe deve se mover e criar um filho.
+<span class="fc" id="L82">        jogo.executarIteracao();</span>
+ 
+<span class="fc" id="L84">        assertEquals(&quot;Peixe A deveria ter reproduzido&quot;, 20, jogo.getQuantidadePeixesA());</span>
+<span class="fc" id="L85">    }</span>
+
+    @Test
+    public void testCT21_MortePeixeAFome() {
+        // CT21: Peixe A morre de fome (por inatividade).
+        // O mapa estará CHEIO. O Peixe A não terá para onde ir (vizinhos ocupados).
+<span class="fc" id="L91">        Aquario jogo = new Aquario(1, 10, 10, 10, 1, 1, 1, 2);</span>
+        
+
+<span class="fc" id="L94">        jogo.executarIteracao();</span>
+        
+        // Se morreu, deve sobrar 0
+<span class="fc" id="L97">        assertEquals(&quot;Peixe A deveria ter morrido de fome&quot;, 0, jogo.getQuantidadePeixesA());</span>
+<span class="fc" id="L98">    }</span>
+
+    @Test
+    public void testCT22_PeixeB_Come_PeixeA() {
+        // CT22: Peixe B come Peixe A.
+        // Cenário: Colocamos 1 A e 1 B em um aquário pequeno para forçar o encontro
+<span class="fc" id="L104">        Aquario jogo = new Aquario(10, 10, 10, 10, 1, 1, 1, 2);</span>
+        
+<span class="fc" id="L106">        jogo.executarIteracao();</span>
+        
+        // Se B comeu A, A deve ser 0.
+        // (Nota: Isso depende da sorte/posicionamento na lógica final, mas é o objetivo do teste)
+<span class="fc" id="L110">        assertEquals(&quot;Peixe A deveria ter sido comido&quot;, 0, jogo.getQuantidadePeixesA());</span>
+<span class="fc" id="L111">    }</span>
+    
+    @Test
+    public void testCT23_MortePeixeBFome() {
+        // CT23: Peixe B morre de fome (não comeu A).        
+
+<span class="fc" id="L117">        Aquario jogo = new Aquario(10, 10, 1, 10, 1, 1, 2, 2); </span>
+        
+<span class="fc" id="L119">        jogo.executarIteracao();</span>
+<span class="fc" id="L120">        jogo.executarIteracao();</span>
+<span class="fc" id="L121">        jogo.executarIteracao();</span>
+        
+        // B deve morrer
+<span class="fc" id="L124">        assertEquals(&quot;Peixe B deveria morrer de fome&quot;, 0, jogo.getQuantidadePeixesB());</span>
+<span class="fc" id="L125">    }</span>
+
+    @Test
+    public void testExtra_Visualizacao() {
+<span class="fc" id="L129">        Aquario jogo = new Aquario(10, 10, 10, 10, 1, 1, 5, 5);</span>
+<span class="fc" id="L130">        jogo.imprimirAquario(); </span>
+<span class="fc" id="L131">    }</span>
+
+    @Test
+    public void testExtra_Setters() {
+    
+<span class="fc" id="L136">        Aquario jogo = new Aquario(10, 10, 10, 10, 1, 1, 5, 5);</span>
+        
+<span class="fc" id="L138">        jogo.setQuantidadePeixesA(5);</span>
+<span class="fc" id="L139">        jogo.setQuantidadePeixesB(3);</span>
+        
+<span class="fc" id="L141">    }</span>
+    
+    @Test
+    public void testExtra_PeixeB_MovimentoSemComer() {
+       
+<span class="fc" id="L146">        Aquario jogo = new Aquario(10, 10, 10, 10, 1, 1, 20, 20);</span>
+<span class="fc" id="L147">        jogo.executarIteracao();</span>
+        // Apenas rodar já cobre as linhas de &quot;mover para vazio&quot; do Peixe B
+<span class="fc" id="L149">    }</span>
+
+    @Test
+    public void testExtra_PeixeB_Preso() {
+     
+<span class="fc" id="L154">        Aquario jogo = new Aquario(10, 10, 10, 10, 1, 8, 3, 3);</span>
+        
+<span class="fc" id="L156">        jogo.executarIteracao();</span>
+       
+<span class="fc" id="L158">    }</span>
+
+    @Test
+    public void testExtra_PeixeB_MoveSemComer() {
+    
+<span class="fc" id="L163">        Aquario jogo = new Aquario(10, 10, 10, 10, 1, 1, 20, 20);</span>
+        
+<span class="fc" id="L165">        jogo.setQuantidadePeixesA(0);</span>
+        
+<span class="fc" id="L167">        jogo.executarIteracao();</span>
+
+<span class="fc" id="L169">        assertEquals(1, jogo.getQuantidadePeixesB());</span>
+<span class="fc" id="L170">    }</span>
+    
+    @Test
+    public void testExtra_Espaco_Para_PeixeA_Mover() {
+    	
+<span class="fc" id="L175">    	Aquario jogo = new Aquario(4, 20, 4, 20, 2, 2, 20, 20);</span>
+    	
+<span class="fc" id="L177">    	jogo.setQuantidadePeixesA(0);</span>
+    	
+<span class="fc" id="L179">    	jogo.executarIteracao();</span>
+    	
+<span class="fc" id="L181">    	assertEquals(2, jogo.getQuantidadePeixesB());</span>
+<span class="fc" id="L182">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PrincipalTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">PrincipalTest.java</span></div><h1>PrincipalTest.java</h1><pre class="source lang-java linenums">import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.InputMismatchException;
+// esse arquivo é para testar o principal.java
+// para aumentar a cobertura pois impacta nos numeros de testes
+<span class="fc" id="L11">public class PrincipalTest {</span>
+
+    @Test
+    public void testPrincipal_FluxoNormal() {
+<span class="fc" id="L15">        String entradas = &quot;5\n5\n2\n1\n5\n1\n5\n2\n\n\ns\n&quot;;</span>
+        
+<span class="fc" id="L17">        InputStream in = new ByteArrayInputStream(entradas.getBytes());</span>
+<span class="fc" id="L18">        System.setIn(in);</span>
+
+<span class="fc" id="L20">        Principal.main(new String[]{});</span>
+<span class="fc" id="L21">    }</span>
+
+    @Test
+    public void testPrincipal_ErroInicializacao() {
+        // Cenário: O usuário digita valores inválidos (Ex: Peixes negativos)
+  
+<span class="fc" id="L27">        String entradas = &quot;5\n5\n-10\n1\n5\n1\n5\n2\n&quot;;</span>
+        
+<span class="fc" id="L29">        InputStream in = new ByteArrayInputStream(entradas.getBytes());</span>
+<span class="fc" id="L30">        System.setIn(in);</span>
+<span class="fc" id="L31">        Principal.main(new String[]{});</span>
+<span class="fc" id="L32">    }</span>
+    
+    @Test
+    public void testPrincipal_VitoriaPeixesB_Extintos() {
+
+<span class="fc" id="L37">         String entradas = &quot;5\n5\n1\n1\n5\n1\n1\n2\n\n\ns\n&quot;;</span>
+
+<span class="fc" id="L39">         InputStream in = new ByteArrayInputStream(entradas.getBytes());</span>
+<span class="fc" id="L40">         System.setIn(in);</span>
+
+<span class="fc" id="L42">         Principal.main(new String[]{});</span>
+<span class="fc" id="L43">    }</span>
+    
+    
+    @Test
+    public void testCT10_MA_Invalido() {
+<span class="fc" id="L48">    	String entradas = &quot;a\n5\n5\n1\n5\n1\n5\n2\n&quot;;</span>
+
+<span class="fc" id="L50">        InputStream in = new ByteArrayInputStream(entradas.getBytes());</span>
+<span class="fc" id="L51">        System.setIn(in);</span>
+
+<span class="fc" id="L53">        Principal.main(new String[]{});</span>
+<span class="fc" id="L54">    }</span>
+    
+    @Test
+    public void testCT11_RA_Invalido() {
+<span class="fc" id="L58">    	String entradas = &quot;5\nb\n5\n1\n5\n1\n5\n2\n&quot;;</span>
+
+<span class="fc" id="L60">        InputStream in = new ByteArrayInputStream(entradas.getBytes());</span>
+<span class="fc" id="L61">        System.setIn(in);</span>
+
+<span class="fc" id="L63">        Principal.main(new String[]{});</span>
+<span class="fc" id="L64">    }</span>
+    
+    @Test
+    public void testCT12_MB_Invalido() {
+<span class="fc" id="L68">    	String entradas = &quot;5\n5\nc\n1\n5\n1\n5\n2\n&quot;;</span>
+
+<span class="fc" id="L70">        InputStream in = new ByteArrayInputStream(entradas.getBytes());</span>
+<span class="fc" id="L71">        System.setIn(in);</span>
+
+<span class="fc" id="L73">        Principal.main(new String[]{});</span>
+<span class="fc" id="L74">    }</span>
+    
+    @Test
+    public void testCT13_RB_Invalido() {
+<span class="fc" id="L78">    	String entradas = &quot;5\n5\n5\nd\n5\n1\n5\n2\n&quot;;</span>
+
+<span class="fc" id="L80">        InputStream in = new ByteArrayInputStream(entradas.getBytes());</span>
+<span class="fc" id="L81">        System.setIn(in);</span>
+
+<span class="fc" id="L83">        Principal.main(new String[]{});</span>
+<span class="fc" id="L84">    }</span>
+    
+    @Test
+    public void testCT14_X_Invalido() {
+<span class="fc" id="L88">    	String entradas = &quot;5\n5\n5\n1\ne\n1\n5\n2\n&quot;;</span>
+
+<span class="fc" id="L90">        InputStream in = new ByteArrayInputStream(entradas.getBytes());</span>
+<span class="fc" id="L91">        System.setIn(in);</span>
+
+<span class="fc" id="L93">        Principal.main(new String[]{});</span>
+<span class="fc" id="L94">    }</span>
+    
+    @Test
+    public void testCT15_Y_Invalido() {
+<span class="fc" id="L98">    	String entradas = &quot;5\n5\n5\n1\n5\nf\n5\n2\n&quot;;</span>
+
+<span class="fc" id="L100">        InputStream in = new ByteArrayInputStream(entradas.getBytes());</span>
+<span class="fc" id="L101">        System.setIn(in);</span>
+
+<span class="fc" id="L103">        Principal.main(new String[]{});</span>
+<span class="fc" id="L104">    }</span>
+    
+    @Test
+    public void testCT16_M_Invalido() {
+<span class="fc" id="L108">    	String entradas = &quot;5\n5\n5\n1\n5\n1\ng\n2\n&quot;;</span>
+
+<span class="fc" id="L110">        InputStream in = new ByteArrayInputStream(entradas.getBytes());</span>
+<span class="fc" id="L111">        System.setIn(in);</span>
+
+<span class="fc" id="L113">        Principal.main(new String[]{});</span>
+<span class="fc" id="L114">    }</span>
+    
+    @Test
+    public void testCT17_N_Invalido() {
+<span class="fc" id="L118">    	String entradas = &quot;5\n5\n5\n1\n5\n1\n5\nh\n&quot;;</span>
+
+<span class="fc" id="L120">        InputStream in = new ByteArrayInputStream(entradas.getBytes());</span>
+<span class="fc" id="L121">        System.setIn(in);</span>
+
+<span class="fc" id="L123">        Principal.main(new String[]{});</span>
+<span class="fc" id="L124">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
